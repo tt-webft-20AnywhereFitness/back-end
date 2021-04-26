@@ -3,6 +3,7 @@
 const register = {
   username: 'string',
   password: 'string',
+  email: 'string',
   bio: 'string',
   // Additional Auth Code required for registering as instructor
   accountType: ['Client', 'Instructor'],
