@@ -9,8 +9,7 @@
 exports.up = async (knex) => {
   await knex.schema
     .createTable('roles', (table) => {
-      table.increments('roles');
-      table.integer('role_id', 200).notNullable();
+      table.increments('role_id');
       table.string('role_name', 200).notNullable();
     })
     .createTable('users', (users) => {
@@ -27,8 +26,7 @@ exports.up = async (knex) => {
         .onUpdate('RESTRICT');
     })
     .createTable('classes', (table) => {
-      table.increments('classes');
-      table.string('class_id', 200).notNullable();
+      table.increments('class_id');
       table.string('class_name', 200).notNullable();
       table.string('type', 200).notNullable();
       table.integer('instructor_id')
@@ -46,8 +44,7 @@ exports.up = async (knex) => {
       table.string('size', 200).notNullable().unsigned();
     })
     .createTable('registrations', (table) => {
-      table.increments('registrations');
-      table.integer('registration_id', 200).notNullable();
+      table.increments('registration_id');
       table.integer('class_id', 200).notNullable()
         .notNullable()
         .unsigned()
