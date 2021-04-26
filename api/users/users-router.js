@@ -12,3 +12,5 @@ router.post('/login', (req, res, next) => {
   console.log('User logged in...');
   console.log(`Payload is: ${req.body}`);
 });
+
+module.exports = router;
