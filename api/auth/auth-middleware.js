@@ -54,7 +54,7 @@ const checkUsernameExists = async (req, res, next) => {
 const checkEmailExists = async (req, res, next) => {
   try {
     const users = await Auth.getBy({ email: req.body.username });
-    if (!users.length) {
+    if (users) {
       next();
     } else {
       next({

@@ -1,17 +1,28 @@
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const {
   checkUsernameExists,
   checkEmailExists,
   validateRoleName,
   validateCredentials,
-} = require('./auth-middleware');
-const { JWT_SECRET } = require('../secrets/secrets');
-const Auth = require('./auth-model');
+} = require("./auth-middleware");
+const { JWT_SECRET } = require("../secrets/secrets");
+const Auth = require("./auth-model");
+
+const makeToken = (user) => {
+  const payload = {
+    subject: user.user_id,
+    username: user.username,
+  };
+  const options = {
+    expiresIn: "1d",
+  };
+  return jwt.sign(payload, JWT_SECRET, options);
+};
 
 router.post(
-  '/register',
+  "/register",
   checkEmailExists,
   checkUsernameExists,
   async (req, res, next) => {
@@ -24,28 +35,27 @@ router.post(
         res.status(201).json(user);
       })
       .catch(next);
-  },
+  }
 );
 
-router.post('/login', validateCredentials, async (req, res, next) => {
-  const user = req.body;
-  const token = buildToken(user);
-  res.status(200).json({ message: `welcome, ${user.username}`, token });
-
-  function buildToken(info) {
-    const payload = {
-      subject: info.user_id,
-      username: info.username,
-    };
-    const config = {
-      expiresIn: '3d',
-    };
-    return JWT_SECRET.substring(payload, JWT_SECRET, config);
-  }
+router.post("/login", (req, res, next) => {
+  const { username, password } = req.body;
+  Auth.getBy({ username })
+    .then(([user]) => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = makeToken(user);
+        res.status(200).json({
+          username: user.username,
+          user_id: user.user_id,
+          token,
+        });
+      } else {
+        res.status(401).json({ message: "Invalid Credentials" });
+      }
+    })
+    .catch(next);
 });
 
-router.post('logout', (req, res, next) => {
-
-});
+router.post("logout", (req, res, next) => {});
 
 module.exports = router;
