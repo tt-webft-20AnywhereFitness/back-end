@@ -1,5 +1,6 @@
-const bcrypt = require('bcryptjs');
-const Users = require('./users-model');
+/* eslint-disable quotes */
+const bcrypt = require("bcryptjs");
+const Users = require("./users-model");
 
 async function validateUserId(req, res, next) {
   const { id } = req.params;
@@ -17,14 +18,7 @@ async function validateUserId(req, res, next) {
     next(error);
   }
 }
-function validateNewUser(req, res, next) {
-  next();
-}
-function validatePassword(req, res, next) {
-  next();
-}
+
 module.exports = {
-  validateNewUser,
-  validatePassword,
   validateUserId,
 };
