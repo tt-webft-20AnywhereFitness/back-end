@@ -23,6 +23,7 @@
         "no-console": "off",
         "no-unused-vars": "off",
         "func-names": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "camelcase": "off"
     }
 }
