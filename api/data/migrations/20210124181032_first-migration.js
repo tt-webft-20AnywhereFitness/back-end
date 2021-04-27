@@ -14,9 +14,9 @@ exports.up = async (knex) => {
     })
     .createTable('users', (users) => {
       users.increments('user_id');
-      users.string('username', 200).notNullable();
+      users.string('username', 200).notNullable().unique();
       users.string('password', 200).notNullable();
-      users.string('email', 320).notNullable();
+      users.string('email', 320).notNullable().unique();
       users.integer('remaining_classes', 128).notNullable();
       users.integer('role_id', 200).notNullable()
         .unsigned()
