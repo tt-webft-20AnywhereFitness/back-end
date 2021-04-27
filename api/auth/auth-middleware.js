@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const { JWT_SECRET } = require('../secrets/secrets');
 const Auth = require('./auth-model');
 
@@ -61,10 +62,26 @@ const validateRoleName = (req, res, next) => {
   next();
 };
 
+async function validateCredentials(req, res, next) {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    next({ status: 400, message: 'username and password required' });
+  } else {
+    const databaseUser = await Auth.getBy({ username: req.body.username });
+    if (databaseUser && bcrypt.compareSync(req.body.password, databaseUser.password)) {
+      req.body.user_id = databaseUser.user_id;
+      next();
+    } else {
+      next({ message: 'invalid credentials' });
+    }
+  }
+}
+
 module.exports = {
   restricted,
   only,
   checkUsernameExists,
   checkEmailExists,
   validateRoleName,
+  validateCredentials,
 };
