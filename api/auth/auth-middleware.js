@@ -37,7 +37,7 @@ const only = (role_name) => (req, res, next) => {
 const checkUsernameExists = async (req, res, next) => {
   try {
     const users = await Auth.getBy({ username: req.body.username });
-    if (!users) {
+    if (!users.length) {
       next();
     } else {
       next({
@@ -53,8 +53,8 @@ const checkUsernameExists = async (req, res, next) => {
 
 const checkEmailExists = async (req, res, next) => {
   try {
-    const users = await Auth.getBy({ email: req.body.username });
-    if (!users) {
+    const users = await Auth.getBy({ email: req.body.email });
+    if (!users.length) {
       next();
     } else {
       next({
