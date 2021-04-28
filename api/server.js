@@ -1,3 +1,4 @@
+
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -10,12 +11,13 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
+
 server.use("/api/auth", authRouter);
 server.use("/api/users", usersRouter);
 server.use("/api/classes", classesRouter);
 
-server.get("/", (req, res) => {
-  res.json({ api: "up" });
+server.get('/', (req, res) => {
+  res.json({ api: 'up' });
 });
 
 server.use((err, req, res, next) => {
