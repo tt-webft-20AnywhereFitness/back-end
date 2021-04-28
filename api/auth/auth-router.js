@@ -14,6 +14,7 @@ const makeToken = (user) => {
   const payload = {
     subject: user.user_id,
     username: user.username,
+    role_id: user.role_id,
   };
   const options = {
     expiresIn: "1d",
@@ -47,6 +48,7 @@ router.post("/login", (req, res, next) => {
         res.status(200).json({
           username: user.username,
           user_id: user.user_id,
+          role_id: user.role_id,
           token,
         });
       } else {

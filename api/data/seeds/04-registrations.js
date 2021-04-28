@@ -24,5 +24,5 @@ const registrations = [
 exports.registrations = registrations;
 
 exports.seed = function (knex) {
-  return knex('registrations').insert(registrations);
+  return knex("registrations").insert(registrations);
 };

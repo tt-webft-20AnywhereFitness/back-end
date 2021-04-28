@@ -31,11 +31,12 @@ const classes = [
     location: '24 Hour Fitness',
     registered_clients: 0,
     size: 12,
+
   },
 ];
 
 exports.classes = classes;
 
 exports.seed = function (knex) {
-  return knex('classes').insert(classes);
+  return knex("classes").insert(classes);
 };
