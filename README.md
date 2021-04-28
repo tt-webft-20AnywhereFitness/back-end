@@ -70,5 +70,5 @@ Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
             Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes/1
 
         [DELETE] [RemoveClassById] - Remove a user's class by their assigned class ID
-            Endpoint: /class/:class_id
+            Endpoint: /classes/:class_id
             Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes/1
