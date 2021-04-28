@@ -35,7 +35,8 @@ router.delete('/:id', (req, res, next) => {
   const token = req.headers.authorization;
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     const client_id = decoded.subject;
-    User.signUp(parseInt(req.params.id, 10), client_id)
+    console.log(client_id);
+    User.cancelClass(parseInt(req.params.id, 10), client_id)
       .then((regs) => {
         res.json(regs);
       })

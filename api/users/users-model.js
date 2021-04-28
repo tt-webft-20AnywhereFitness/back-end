@@ -17,7 +17,7 @@ async function signUp(class_id, client_id) {
     registered_clients: totalRegistered.count,
   });
 
-  return db('classes').where({ class_id }).select('class_id', 'class_name', 'registered_clients');
+  return db('classes').where({ class_id }).select('class_id', 'class_name', 'registered_clients').first();
 }
 
 async function cancelClass(class_id, client_id) {
@@ -29,7 +29,7 @@ async function cancelClass(class_id, client_id) {
     registered_clients: totalRegistered.count,
   });
 
-  return db('classes').where({ class_id }).select('class_id', 'class_name', 'registered_clients');
+  return db('classes').where({ class_id }).select('class_id', 'class_name', 'registered_clients').first();
 }
 
 module.exports = {
