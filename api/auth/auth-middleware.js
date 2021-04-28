@@ -37,7 +37,7 @@ const only = (role_name) => (req, res, next) => {
 const checkUsernameExists = async (req, res, next) => {
   try {
     const users = await Auth.getBy({ username: req.body.username });
-    if (!users.length) {
+    if (!users) {
       next();
     } else {
       next({
@@ -54,7 +54,7 @@ const checkUsernameExists = async (req, res, next) => {
 const checkEmailExists = async (req, res, next) => {
   try {
     const users = await Auth.getBy({ email: req.body.username });
-    if (users) {
+    if (!users) {
       next();
     } else {
       next({
@@ -68,28 +68,40 @@ const checkEmailExists = async (req, res, next) => {
   }
 };
 
-async function validateCredentials(req, res, next) {
-  const { username, password } = req.body;
-  if (!username || !password) {
-    next({ status: 400, message: "username and password required" });
+const checkPayload = (req, res, next) => {
+  const { username, password, email } = req.body;
+  if (
+    username &&
+    password &&
+    email &&
+    typeof password === "string" &&
+    typeof email === "string"
+  ) {
+    next();
   } else {
-    const databaseUser = await Auth.getBy({ username: req.body.username });
-    if (
-      databaseUser &&
-      bcrypt.compareSync(req.body.password, databaseUser.password)
-    ) {
-      req.body.user_id = databaseUser.user_id;
-      next();
-    } else {
-      next({ message: "invalid credentials" });
-    }
+    res.status(422).json({
+      message:
+        "please provide username, password, and email and the password shoud be alphanumeric",
+    });
   }
-}
+};
+
+const checkLoginPayload = (req, res, next) => {
+  const { username, password } = req.body;
+  if (username && password) {
+    next();
+  } else {
+    res.status(422).json({
+      message: "please provide username and password",
+    });
+  }
+};
 
 module.exports = {
   restricted,
   only,
   checkUsernameExists,
   checkEmailExists,
-  validateCredentials,
+  checkLoginPayload,
+  checkPayload,
 };
