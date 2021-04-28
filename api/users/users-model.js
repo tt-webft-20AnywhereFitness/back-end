@@ -9,6 +9,7 @@ function getById(user_id) {
 }
 
 async function signUp(class_id, client_id) {
+  console.log('client id: ', client_id);
   await db('registrations').insert({ class_id, client_id }).returning('registration_id');
 
   const totalRegistered = await db('registrations').where({ class_id }).count().first();

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../secrets/secrets');
 const User = require('./users-model');
 const mw = require('./users-middleware');
 
@@ -17,12 +18,15 @@ router.get('/:id', mw.validateUserId, (req, res, next) => {
 });
 
 router.post('/:id', (req, res, next) => {
-  const { client_id } = req.body;
-  User.signUp(parseInt(req.params.id, 10), client_id)
-    .then((regs) => {
-      res.json(regs);
-    })
-    .catch(next);
+  const token = req.headers.authorization;
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    const client_id = decoded.subject;
+    User.signUp(parseInt(req.params.id, 10), client_id)
+      .then((regs) => {
+        res.json(regs);
+      })
+      .catch(next);
+  });
 });
 
 router.put('/:id', (req, res, next) => {});
