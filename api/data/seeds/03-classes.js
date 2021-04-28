@@ -38,5 +38,5 @@ const classes = [
 exports.classes = classes;
 
 exports.seed = function (knex) {
-  return knex("classes").insert(classes);
+  return knex('classes').insert(classes);
 };
