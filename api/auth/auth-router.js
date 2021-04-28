@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 const {
   checkUsernameExists,
   checkEmailExists,
-  validateRoleName,
-  validateCredentials,
+  checkLoginPayload,
+  checkPayload,
 } = require("./auth-middleware");
 const { JWT_SECRET } = require("../secrets/secrets");
 const Auth = require("./auth-model");
@@ -24,6 +24,7 @@ const makeToken = (user) => {
 
 router.post(
   "/register",
+  checkPayload,
   checkEmailExists,
   checkUsernameExists,
   async (req, res, next) => {
@@ -39,7 +40,7 @@ router.post(
   }
 );
 
-router.post("/login", (req, res, next) => {
+router.post("/login", checkLoginPayload, (req, res, next) => {
   const { username, password } = req.body;
   Auth.getBy({ username })
     .then(([user]) => {
