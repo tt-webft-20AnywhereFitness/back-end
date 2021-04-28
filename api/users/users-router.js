@@ -31,6 +31,16 @@ router.post('/:id', (req, res, next) => {
 
 router.put('/:id', (req, res, next) => {});
 
-router.delete('/:id', (req, res, next) => { });
+router.delete('/:id', (req, res, next) => {
+  const token = req.headers.authorization;
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    const client_id = decoded.subject;
+    User.signUp(parseInt(req.params.id, 10), client_id)
+      .then((regs) => {
+        res.json(regs);
+      })
+      .catch(next);
+  });
+});
 
 module.exports = router;
