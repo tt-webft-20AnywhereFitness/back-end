@@ -1,6 +1,6 @@
-Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 - 
+Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
 
-[Endpoints] Base URL: https://anywhere-fitness-tt-20.herokuapp.com/api
+[Endpoints] Base URL: https://anywhere-fitness-app-tt-20.herokuapp.com/api
 
     This url will be the beginning of all endpoints. Add the following endpoints below to the base URL.
 
@@ -8,7 +8,7 @@ Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
 
     No token is required when registering
 
-    Example: https://anywhere-fitness-tt-20.herokuapp.com/api/auth/register
+    Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/auth/register
 
         [POST] [Register] - Register a new user
             Endpoint: /auth/register
@@ -25,7 +25,7 @@ Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
 
     Token required for login
 
-    Example: https://anywhere-fitness-tt-20.herokuapp.com/api/auth/login
+    Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/auth/login
 
         [POST] [Login] - Login an already registered user to receive a token
             Endpoint: /auth/login
@@ -38,7 +38,7 @@ Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
 
     Token required for Logout
 
-    Example: https://anywhere-fitness-tt-20.herokuapp.com/api/auth/logout
+    Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/auth/logout
 
         [POST] [Logout] - Logout a user destroy a token
             Endpoint: /auth/logout
@@ -52,24 +52,24 @@ Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
 
         [GET] [FindAllClasses] - Finds all classes
             Endpoint: /classes
-            Example: https://anywhere-fitness-tt-20.herokuapp.com/api/classes
+            Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes
 
         [GET] [FindClassById] - Find a specific class by its assigned class ID
             Endpoint: /classes/:class_id
-            Example: https://anywhere-fitness-tt-20.herokuapp.com/api/classes/1
+            Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes/1
 
         [GET] [FindClassesByUserId] - Find a user's classes by their assigned user ID
             Endpoint: /classes/user/:user_id
-            Example: https://anywhere-fitness-tt-20.herokuapp.com/api/classes/user/1
+            Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes/user/1
 
         [POST] [AddClasses] - Create a new user class.
             Endpoint: /classes
-            Example: https://anywhere-fitness-tt-20.herokuapp.com/api/classes
+            Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes
 
         [PUT] [AddClasses] - Update an existing user's class.
             Endpoint: /classes/:class_id
-            Example: https://anywhere-fitness-tt-20.herokuapp.com/api/classes/1
+            Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes/1
 
         [DELETE] [RemoveClassById] - Remove a user's class by their assigned class ID
             Endpoint: /class/:class_id
-            Example: https://anywhere-fitness-tt-20.herokuapp.com/api/classes/1
+            Example: https://anywhere-fitness-app-tt-20.herokuapp.com/api/classes/1
