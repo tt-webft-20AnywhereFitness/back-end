@@ -17,9 +17,8 @@ Node Back-End - Build Week - Anywhere Fitness tt_wbft_20 -
         "username" - string, unique (MUST not match any other registered username), REQUIRED
         "password" - string, REQUIRED
         "email": string, unique, REQUIRED
-        "bio": string, OPTIONAL
-        "accountType": string, REQUIRED
-        "certifications": array,
+        "remaining_classes": integer, REQUIRED
+        "role_id": integer, REQUIRED
 
 [Login]
 
