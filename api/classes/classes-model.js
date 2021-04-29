@@ -4,13 +4,16 @@ function getAllClasses() {
   return db('classes');
 }
 
+function findInstructor() {
+
+}
 // function getClassesByType(type) {
 //     return db('classes').where({ type });
 // }
 
 function create(post) {
   return db('classes')
-    .insert(post, 'id');
+    .insert(post);
 }
 
 module.exports = {
