@@ -17,6 +17,7 @@ router.post('/', (req, res, next) => {
   });
 });
 
+
 // CRUD:  READ
 router.get('/', (req, res, next) => {
   Classes.getAllClasses()
@@ -39,6 +40,7 @@ router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(500).json({ message: 'Error updating the class' });
+
     });
 });
 
