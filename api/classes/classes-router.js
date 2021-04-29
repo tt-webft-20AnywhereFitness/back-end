@@ -25,12 +25,30 @@ router.post('/', (req, res, next) => {
   });
 });
 
-router.put('/:id', (req, res, next) => {
-
+router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
+  Classes.update(req.params.id, req.body)
+    .then(classes => {
+      if (classes) {
+        res.status(200).json(classes);
+      } else {
+        res.status(404).json({ message: 'The class could not be found' });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error updating the class' });
+    });
 });
 
-router.delete('/:id', (req, res, next) => {
-
+router.delete('/:classes_id', mw.validateInstrutorsId, (req, res) => {
+  Classes.remove(req.params.id)
+    .then(() => {
+      res.status(200).json({ message: "Class deleted" })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: 'Error deleting the class' });
+    });
 });
 
 // router.get("/", (req, res, next) => {
