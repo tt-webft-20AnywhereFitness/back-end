@@ -1,10 +1,9 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable quotes */
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { JWT_SECRET } = require("../secrets/secrets");
 const Auth = require("./auth-model");
 
+// AUTHORIZATION OF AUTHENTICATED USERS
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -34,6 +33,7 @@ const only = (role_name) => (req, res, next) => {
   next();
 };
 
+// PRESERVE UNIQUENESS OF USER REGISTRATION DATA
 const checkUsernameExists = async (req, res, next) => {
   try {
     const users = await Auth.getBy({ username: req.body.username });
@@ -51,6 +51,7 @@ const checkUsernameExists = async (req, res, next) => {
   }
 };
 
+// PRESERVE UNIQUENESS OF USER REGISTRATION DATA
 const checkEmailExists = async (req, res, next) => {
   try {
     const users = await Auth.getBy({ email: req.body.email });
@@ -68,6 +69,7 @@ const checkEmailExists = async (req, res, next) => {
   }
 };
 
+// ENSURE REGISTRATION ATTEMPT HAS REQUIRED FIELDS
 const checkPayload = (req, res, next) => {
   const { username, password, email } = req.body;
   if (
@@ -81,18 +83,19 @@ const checkPayload = (req, res, next) => {
   } else {
     res.status(422).json({
       message:
-        "please provide username, password, and email and the password shoud be alphanumeric",
+        "Please provide username, password, and email.",
     });
   }
 };
 
+// ENSURE LOGIN ATTEMPT HAS REQUIRED FIELDS
 const checkLoginPayload = (req, res, next) => {
   const { username, password } = req.body;
   if (username && password) {
     next();
   } else {
     res.status(422).json({
-      message: "please provide username and password",
+      message: "Please provide username and password.",
     });
   }
 };
