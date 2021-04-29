@@ -34,11 +34,11 @@ function validateClassBody(req, res, next) {
 }
 
 function validateInstrutorsId(req, res, next) {
-  const { id } = req.params;
-  Class.findInstructor(id)
+  const { user_id } = req.params;
+  Class.findInstructor(user_id)
     .then((data) => {
-      if (data === 2) {
-        res.id = data;
+      if (data) {
+        res.user_id = data;
         next();
       } else {
         res.status(404).json({
