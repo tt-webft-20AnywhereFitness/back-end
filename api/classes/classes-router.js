@@ -5,18 +5,10 @@ const Classes = require("./classes-model");
 const JWT_SECRET = require('../secrets/secrets');
 const mw = require('./classes-middleware');
 
-router.get('/', (req, res, next) => {
-  Classes.getAllClasses()
-    .then((classes) => {
-      res.status(200).json(classes);
-    })
-    .catch(next);
-});
-
+// CRUD:  CREATE
 router.post('/', (req, res, next) => {
   const token = req.headers.authorization;
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    // const instructor_id = decoded.subject;
     Classes.create(req.body)
       .then(() => {
         res.json(req.body);
@@ -25,6 +17,17 @@ router.post('/', (req, res, next) => {
   });
 });
 
+
+// CRUD:  READ
+router.get('/', (req, res, next) => {
+  Classes.getAllClasses()
+    .then((classes) => {
+      res.status(200).json(classes);
+    })
+    .catch(next);
+});
+
+// CRUD:  UPDATE
 router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
   Classes.update(req.params.id, req.body)
     .then(classes => {
@@ -37,9 +40,11 @@ router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(500).json({ message: 'Error updating the class' });
+
     });
 });
 
+// CRUD:  DELETE
 router.delete('/:classes_id', mw.validateInstrutorsId, (req, res) => {
   Classes.remove(req.params.id)
     .then(() => {
@@ -50,13 +55,5 @@ router.delete('/:classes_id', mw.validateInstrutorsId, (req, res) => {
       res.status(500).json({ message: 'Error deleting the class' });
     });
 });
-
-// router.get("/", (req, res, next) => {
-//     Classes.getClassesByType()
-//     .then((type) => {
-//         res.status(200).json(type);
-//     })
-//     .catch(next);
-// })
 
 module.exports = router;

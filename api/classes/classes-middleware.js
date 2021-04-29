@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const Class = require('./classes-model');
 
+
+// ENSURE CLASS CREATION ATTEMPT HAS REQUIRED FIELDS
 function validateClassBody(req, res, next) {
   const {
     class_name,
@@ -33,6 +35,7 @@ function validateClassBody(req, res, next) {
   }
 }
 
+// VERIFY THAT THE USER WHO CREATED A CLASS IS THE ONE ATTEMPTING TO UPDATE/DELETE IT
 function validateInstrutorsId(req, res, next) {
   const { user_id } = req.params;
   Class.findInstructor(user_id)
