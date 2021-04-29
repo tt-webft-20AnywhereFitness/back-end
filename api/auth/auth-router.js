@@ -10,6 +10,8 @@ const {
 const { JWT_SECRET } = require("../secrets/secrets");
 const Auth = require("./auth-model");
 
+
+// CREATION OF NEW TOKEN
 const makeToken = (user) => {
   const payload = {
     subject: user.user_id,
@@ -22,6 +24,7 @@ const makeToken = (user) => {
   return jwt.sign(payload, JWT_SECRET, options);
 };
 
+// CREATION OF NEW USER
 router.post(
   "/register",
   checkPayload,
@@ -40,6 +43,7 @@ router.post(
   }
 );
 
+// LOGGING IN RETURNING USERS
 router.post("/login", checkLoginPayload, (req, res, next) => {
   const { username, password } = req.body;
   Auth.getBy({ username })
@@ -59,6 +63,6 @@ router.post("/login", checkLoginPayload, (req, res, next) => {
     .catch(next);
 });
 
-router.post("logout", (req, res, next) => {});
+// router.post("/logout", (req, res, next) => {});
 
 module.exports = router;

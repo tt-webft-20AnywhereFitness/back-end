@@ -1,7 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable radix */
-/* eslint-disable arrow-body-style */
-/* eslint-disable quotes */
 const db = require("../data/db-config");
 
 function getBy(filter) {
