@@ -1,7 +1,7 @@
-/* eslint-disable quotes */
 const bcrypt = require("bcryptjs");
 const Users = require("./users-model");
 
+// USED TO VERIFY A SPECIFIC USER IN A SEARCH
 async function validateUserId(req, res, next) {
   const { id } = req.params;
   try {

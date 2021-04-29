@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../secrets/secrets');
 const User = require('./users-model');
 const mw = require('./users-middleware');
+const { Router } = require('express');
 
+// ROUTER DOT GET COMPONENTS AREN'T VISIBLE TO CLIENTS, BUT ARE USED BY ADMINS
 router.get('/', (req, res, next) => {
   User.getAll()
     .then((users) => {
@@ -17,6 +19,7 @@ router.get('/:id', mw.validateUserId, (req, res, next) => {
   res.status(200).json(req.user);
 });
 
+// CLIENT CAN REGISTER TO TAKE A CLASS
 router.post('/:id', (req, res, next) => {
   const token = req.headers.authorization;
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
@@ -29,6 +32,7 @@ router.post('/:id', (req, res, next) => {
   });
 });
 
+// CLIENT CAN UN-REGISTER FOR A CLASS
 router.delete('/:id', (req, res, next) => {
   const token = req.headers.authorization;
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
