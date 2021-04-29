@@ -16,12 +16,12 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const token = req.headers.authorization;
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
-  const instructor_id = decoded.subject;
-  Classes.create(req.body)
-    .then((post) => {
-      res.json(post);
-    })
-    .catch(next);
+    // const instructor_id = decoded.subject;
+    Classes.create(req.body)
+      .then(() => {
+        res.json(req.body);
+      })
+      .catch(next);
   });
 });
 
