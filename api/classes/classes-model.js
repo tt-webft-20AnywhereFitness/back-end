@@ -11,20 +11,31 @@ function create(post) {
     .insert(post);
 }
 
-function findInstructor(instructor_id) {
-  return db('classes')
-    .where('instructor_id', '=', '2');
+function findInstructor(class_id) {
+  return db('classes as c')
+    .join('users as u', 'u.user_id', 'c.instructor_id')
+    .select('u.user_id')
+    .where({ 'c.instructor_id': class_id });
 }
 
-function update(id, changes) {
+// MAKING CHANGES TO AN EXISTING CLASS
+function update(class_id, changes) {
   return db('classes')
-    .where({ id })
+    .where({ class_id })
     .update(changes);
+}
+
+// DELETING A CLASS
+function remove(class_id) {
+  return db('classes')
+  .where({class_id})
+  .del()
 }
 
 module.exports = {
   getAllClasses,
   create,
   findInstructor,
-  update
+  update,
+  remove
 };

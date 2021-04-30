@@ -27,14 +27,16 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+// mw.validateInstrutorsId,
+
 // CRUD:  UPDATE
-router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
+router.put('/:class_id', (req, res) => {
   const changes = req.body;
-  const { id } = req.params
-  Classes.update(id, changes)
+  const { class_id } = req.params
+  Classes.update(class_id, changes)
     .then((updatedClasses) => {
       if (updatedClasses) {
-        res.status(200).json(updatedClasses);
+        res.status(200).json({ message: `Class with id of ${class_id} was updated` });
       } else {
         res.status(404).json({ message: 'The class could not be found' });
       }
@@ -44,9 +46,10 @@ router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
     });
 });
 
+// mw.validateInstrutorsId,
 // CRUD:  DELETE
-router.delete('/:classes_id', mw.validateInstrutorsId, (req, res) => {
-  Classes.remove(req.params.id)
+router.delete('/:class_id', (req, res) => {
+  Classes.remove(req.params.class_id)
     .then(() => {
       res.status(200).json({ message: "Class deleted" })
     })
