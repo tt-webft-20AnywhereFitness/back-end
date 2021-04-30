@@ -29,18 +29,18 @@ router.get('/', (req, res, next) => {
 
 // CRUD:  UPDATE
 router.put('/:classes_id', mw.validateInstrutorsId, (req, res) => {
-  Classes.update(req.params.id, req.body)
-    .then(classes => {
-      if (classes) {
-        res.status(200).json(classes);
+  const changes = req.body;
+  const { id } = req.params
+  Classes.update(id, changes)
+    .then((updatedClasses) => {
+      if (updatedClasses) {
+        res.status(200).json(updatedClasses);
       } else {
         res.status(404).json({ message: 'The class could not be found' });
       }
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: 'Error updating the class' });
-
+    .catch((error) => {
+      res.status(500).json({ message: error.message });
     });
 });
 
